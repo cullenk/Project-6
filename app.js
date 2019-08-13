@@ -54,12 +54,12 @@ addPhraseToDisplay(phraseArray);
 //Create a function to check if the letters the player guesses match the ones from the phrase
 
   function checkLetter(e){
-  const letter = document.getElementsByClassName('letter'); //Finds all of the items with the class of letter which we created above. Stores them into the "letter" constant
-  for (let i = 0; i < letter.length; i += 1) { // Loops through each letter in the phrase array
-    if (e.target === 'letter'){ // if the button clicked matches a letter in the array...
-      e.target.className = "show"; // add a class name of ".show" to that letter
-      var chosenLetter = document.getElementsByClassName('show'); // Now find all the elements that have the added class name and store it in chosenLetter.
-      return chosenLetter;
+  const letters = document.getElementsByClassName('letter'); //Finds all of the items with the class of letter which we created above. Stores them into the "letter" constant
+  for (let i = 0; i < letters.length; i += 1) { // Loops through each letter in the phrase array
+    if (e.target[i] === 'letters'){ // if the button clicked matches a letter in the array...
+      e.target[i].className = "show"; // add a class name of ".show" to that letter
+      const matchingLetter = document.getElementsByClassName('show'); // Now find all the elements that have the added class name and store it in matchingLetter.
+      return matchingLetter;
     } else { // If the button/letter clicked doesn't match one in the phrase, return a null value.
       return null;
      }
@@ -69,7 +69,8 @@ addPhraseToDisplay(phraseArray);
 //Utilize the above function by adding a click handler when the user actually clicks on a letter guess
 
 qwerty.addEventListener('click', (e) => {
-  e.target.className = 'chosen';
-});
-
-const letterFound = checkLetter(e);
+  if (event.target.nodeName === 'BUTTON') {
+     event.target.className = 'chosen';
+     const letterFound = checkLetter(e);
+     }
+   });
