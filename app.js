@@ -75,6 +75,6 @@ qwerty.addEventListener('click', (e) => {
       e.target.setAttribute('disabled', true);
 
       const letterButtonOnClick = event.target.textContent;
-      const letterFound = checkletter(letterButtonOnClick);
+      const letterFound = checkLetter(letterButtonOnClick);
      }
    });
