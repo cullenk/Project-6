@@ -57,7 +57,7 @@ addPhraseToDisplay(phraseArray);
   function checkLetter(e){
   const letters = document.getElementsByClassName('letter'); //Finds all of the items with the class of letter which we created above. Stores them into the "letter" constant
   for (let i = 0; i < letters.length; i += 1) { // Loops through each letter in the phrase array
-    if (e.target[i] === 'letters'){ // if the button clicked matches a letter in the array...
+    if (e === letters[i].textContent){ // if the button clicked matches a letter in the array...
       letters[i].classList.add('show'); // add a class name of ".show" to that letter
       const matchingLetter = document.getElementsByClassName('show'); // Now find all the elements that have the added class name and store it in matchingLetter.
       return matchingLetter;
@@ -73,6 +73,8 @@ qwerty.addEventListener('click', (e) => {
   if (e.target.nodeName === 'BUTTON') {
       e.target.classList.add('chosen');
       e.target.setAttribute('disabled', true);
-      const letterFound = checkLetter(e);
+
+      const letterButtonOnClick = event.target.textContent;
+      const letterFound = checkletter(letterButtonOnClick);
      }
    });
