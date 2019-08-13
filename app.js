@@ -1,3 +1,4 @@
+
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const missed = 0;
@@ -40,7 +41,7 @@ function addPhraseToDisplay(arr){
       ul.appendChild(listItem); // adds a new child element to that ul, which is the list item we created with the stored phrase letter values
 
       if(arr[i] !== ' '){
-        listItem.className = "letter"; // If the new item is not a space (which makes it a letter), give it the styling from ".letter".
+        listItem.classList.add('letter'); // If the new item is not a space (which makes it a letter), give it the styling from ".letter".
       } else {
         listItem.style.width = '2em'; // Or if it's an actual space, widen the space so we can visually tell the different phrase words apart.
       }
@@ -57,7 +58,7 @@ addPhraseToDisplay(phraseArray);
   const letters = document.getElementsByClassName('letter'); //Finds all of the items with the class of letter which we created above. Stores them into the "letter" constant
   for (let i = 0; i < letters.length; i += 1) { // Loops through each letter in the phrase array
     if (e.target[i] === 'letters'){ // if the button clicked matches a letter in the array...
-      e.target[i].className = "show"; // add a class name of ".show" to that letter
+      letters[i].classList.add('show'); // add a class name of ".show" to that letter
       const matchingLetter = document.getElementsByClassName('show'); // Now find all the elements that have the added class name and store it in matchingLetter.
       return matchingLetter;
     } else { // If the button/letter clicked doesn't match one in the phrase, return a null value.
@@ -69,8 +70,9 @@ addPhraseToDisplay(phraseArray);
 //Utilize the above function by adding a click handler when the user actually clicks on a letter guess
 
 qwerty.addEventListener('click', (e) => {
-  if (event.target.nodeName === 'BUTTON') {
-     event.target.className = 'chosen';
-     const letterFound = checkLetter(e);
+  if (e.target.nodeName === 'BUTTON') {
+      e.target.classList.add('chosen');
+      e.target.setAttribute('disabled', true);
+      const letterFound = checkLetter(e);
      }
    });
