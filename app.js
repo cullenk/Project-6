@@ -11,10 +11,10 @@ const overlay = document.getElementById('overlay');
 
 reset.addEventListener('click', () => {
   overlay.style.display = 'none';
-//Game resets when
-  missed = 0
+// Game resets when user clicks on button after they win or lose
+  missed = 0 // returns the missed guesses to 0
 
-  // Reset Letterboard
+  // Reset phrase display board
     let lis = document.getElementById('phrase').getElementsByTagName('li');
     while (lis.length > 0) {
         lis[0].parentNode.removeChild(lis[0]);
@@ -22,6 +22,11 @@ reset.addEventListener('click', () => {
 
     const phraseArray = getRandomPhraseAsArray(phrases);
     addPhraseToDisplay(phraseArray);
+
+  // Reset the keyboard
+    const freshKeyboard = document.getElementsByClassName('chosen');
+    freshKeyboard.classList.remove('chosen');
+    freshKeyboard.setAttribute('disabled', false);
 });
 
 //Array of phrases for game to choose from.
@@ -86,7 +91,7 @@ addPhraseToDisplay(phraseArray);
 qwerty.addEventListener('click', (e) => { //When you click in the qwerty section, something will happen
   const ol = document.querySelector('#scoreboard ol');
 
-  if (e.target.nodeName === 'BUTTON') { //If what you're clicking within this sextion is a button element, then something happens
+  if (e.target.nodeName === 'BUTTON') { //If what you're clicking within this section is a button element, then something happens
       e.target.classList.add('chosen'); //Give what the user clicked an added class name of "chosen"
       e.target.setAttribute('disabled', true); //Disable what was clicked so it can't be clicked again
 
