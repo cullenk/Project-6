@@ -1,8 +1,8 @@
 
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
-const missed = 0;
-
+var missed = 0;
+const ul = document.querySelector('#phrase ul');
 const reset = document.getElementsByClassName('btn__reset')[0];
 const overlay = document.getElementById('overlay');
 
@@ -11,6 +11,17 @@ const overlay = document.getElementById('overlay');
 
 reset.addEventListener('click', () => {
   overlay.style.display = 'none';
+//Game resets when
+  missed = 0
+
+  // Reset Letterboard
+    let lis = document.getElementById('phrase').getElementsByTagName('li');
+    while (lis.length > 0) {
+        lis[0].parentNode.removeChild(lis[0]);
+    }
+
+    const phraseArray = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(phraseArray);
 });
 
 //Array of phrases for game to choose from.
@@ -56,25 +67,60 @@ addPhraseToDisplay(phraseArray);
 
   function checkLetter(e){
   const letters = document.getElementsByClassName('letter'); //Finds all of the items with the class of letter which we created above. Stores them into the "letter" constant
+  let matchingLetter = null;
   for (let i = 0; i < letters.length; i += 1) { // Loops through each letter in the phrase array
     if (e === letters[i].textContent){ // if the button clicked matches a letter in the array...
       letters[i].classList.add('show'); // add a class name of ".show" to that letter
-      const matchingLetter = document.getElementsByClassName('show'); // Now find all the elements that have the added class name and store it in matchingLetter.
-      return matchingLetter;
-    } else { // If the button/letter clicked doesn't match one in the phrase, return a null value.
-      return null;
-     }
+      // letters[i].classList.add('fade'); // also add a class name of ".fade" to that letter
+      matchingLetter = document.getElementsByClassName('show'); // Now find all the elements that have the added class name and store it in matchingLetter.
+    }
    }
+   return matchingLetter;
+
+   //Gives the new letter that is displaying to the screen a fade in class styling
+
  }
 
 //Utilize the above function by adding a click handler when the user actually clicks on a letter guess
 
-qwerty.addEventListener('click', (e) => {
-  if (e.target.nodeName === 'BUTTON') {
-      e.target.classList.add('chosen');
-      e.target.setAttribute('disabled', true);
+qwerty.addEventListener('click', (e) => { //When you click in the qwerty section, something will happen
+  const ol = document.querySelector('#scoreboard ol');
 
-      const letterButtonOnClick = e.target.textContent;
-      const letterFound = checkLetter(letterButtonOnClick);
+  if (e.target.nodeName === 'BUTTON') { //If what you're clicking within this sextion is a button element, then something happens
+      e.target.classList.add('chosen'); //Give what the user clicked an added class name of "chosen"
+      e.target.setAttribute('disabled', true); //Disable what was clicked so it can't be clicked again
+
+      const letterButtonOnClick = e.target.textContent; //Let the letter that was clicked text's content (that letter) equal this constant
+      const letterFound = checkLetter(letterButtonOnClick);//Run that letter through the checkLetter function to display it
+
+
+  if (letterFound === null) { //If the letter doesn't match anything from the phrase, it has a null value
+      missed += 1; // When this is the case, add 1 to the missed value
+      const liveHeart = ol.querySelectorAll('li img[src="images/liveHeart.png"]'); //Select all of the list items in ol with the sepcified value
+   if (liveHeart.length > 0) { // as long as the index is greater than 0, which it always is since we are selecting them all...
+        liveHeart[0].setAttribute("src", "images/lostHeart.png"); //Change the src value to the new lostHeart image, starting from the 0 index list item
+        }
+      }
+   }
+//function to check whether player wins or lose  game.
+   function checkWin() {
+     const lettersShown = ul.querySelectorAll('.show'); // Gets all elements with the class show
+     const lettersNeeded = ul.querySelectorAll('.letter'); //Gets all element with the class letter
+     const message = document.getElementsByClassName('title')[0]; //Gets the element with the title class for styling purposes
+
+   if (lettersShown.length === lettersNeeded.length) { // If the letters in the display equal the amount of letters in the phrase chosen, you know you've won
+       overlay.removeAttribute('class');
+       overlay.classList.add('win');
+       overlay.style.display = 'flex';
+       message.innerText = "Congratulations, you win!";
+       reset.innerText = "Play Again";
+     } else if (missed >= 5) {
+       overlay.removeAttribute('class');
+       overlay.classList.add('lose');
+       overlay.style.display = 'flex';
+       message.innerText = "Sorry, you lose!";
+       reset.innerText = "Try Again";
      }
-   });
+    }
+    checkWin();
+ });

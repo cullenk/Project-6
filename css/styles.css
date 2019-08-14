@@ -95,6 +95,11 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
+  transition: background-color 1s;
+}
+
+.fade {
+  transition: opacity 8s ease-in;
 }
 
 /* Keyboard */
@@ -117,6 +122,10 @@ button {
   background: #FFFFFF;
   border-radius: 5px;
   font-size: var(--font-size-medium);
+}
+
+.btn__reset:hover {
+  cursor: pointer;
 }
 
 /* Overlay */
