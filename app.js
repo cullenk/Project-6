@@ -26,7 +26,7 @@ reset.addEventListener('click', () => {
   // Reset the keyboard
     const freshKeyboard = document.getElementsByClassName('chosen');
     freshKeyboard.classList.remove('chosen');
-    freshKeyboard.setAttribute('disabled', false);
+    freshKeyboard.removeAttribute('disabled');
 });
 
 //Array of phrases for game to choose from.
