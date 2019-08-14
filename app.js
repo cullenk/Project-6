@@ -119,7 +119,7 @@ qwerty.addEventListener('click', (e) => { //When you click in the qwerty section
        overlay.style.display = 'flex';
        message.innerText = "Congratulations, you win!";
        reset.innerText = "Play Again";
-     } else if (missed >= 5) {
+     } else if (missed > 4) {
        overlay.removeAttribute('class');
        overlay.classList.add('lose');
        overlay.style.display = 'flex';
