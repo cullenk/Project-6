@@ -7,10 +7,12 @@ const reset = document.getElementsByClassName('btn__reset')[0];
 const overlay = document.getElementById('overlay');
 
 
+
 //Main screen disappears into the game after clicking "start game".
 
 reset.addEventListener('click', () => {
   overlay.style.display = 'none';
+
 // Game resets when user clicks on button after they win or lose
   missed = 0 // returns the missed guesses to 0
 
@@ -24,9 +26,19 @@ reset.addEventListener('click', () => {
     addPhraseToDisplay(phraseArray);
 
   // Reset the keyboard
-    const freshKeyboard = document.getElementsByClassName('chosen');
-    freshKeyboard.classList.remove('chosen');
-    freshKeyboard.removeAttribute('disabled');
+    const chosen = document.querySelectorAll('.chosen');
+    for (let i = 0; i < chosen.length; i += 1) {
+    chosen[i].className = ' ';
+    chosen[i].removeAttribute('disabled');
+}
+
+  // Reset hearts
+
+    const ol = document.querySelector('#scoreboard ol');
+    const listOfHearts = ol.querySelectorAll('li img'); //Select all of the list item images in ol, whether it's a lost heart or live heart
+    for (let i = 0; i < listOfHearts.length; i += 1) { // as long as the index is greater than 0, which it always is since we are selecting them all...
+      listOfHearts[0].setAttribute("src", "images/liveHeart.png"); //Change the src value to the new listOfHearts image, starting from the 0 index list item
+    }
 });
 
 //Array of phrases for game to choose from.
