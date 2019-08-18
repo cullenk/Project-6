@@ -17,19 +17,19 @@ reset.addEventListener('click', () => {
   missed = 0 // returns the missed guesses to 0
 
   // Reset phrase display board
-    let lis = document.getElementById('phrase').getElementsByTagName('li');
-    while (lis.length > 0) {
-        lis[0].parentNode.removeChild(lis[0]);
+    let oldPhrase = document.getElementById('phrase').getElementsByTagName('li'); // Select all of the li items in the phrase (the letters)
+    while (oldPhrase.length > 0) {
+        oldPhrase[0].parentNode.removeChild(oldPhrase[0]); // Remove them all
     }
 
-    const phraseArray = getRandomPhraseAsArray(phrases);
+    const phraseArray = getRandomPhraseAsArray(phrases); // Call back the function to bring in a new phrase/letters
     addPhraseToDisplay(phraseArray);
 
   // Reset the keyboard
-    const chosen = document.querySelectorAll('.chosen');
+    const chosen = document.querySelectorAll('.chosen'); //Find all the letters on the keyboard that were clicked on
     for (let i = 0; i < chosen.length; i += 1) {
-    chosen[i].className = ' ';
-    chosen[i].removeAttribute('disabled');
+    chosen[i].className = ' '; // set the class name back to nothing, removing the "chosen" styling
+    chosen[i].removeAttribute('disabled'); // remove the diabled atttribute so the user can click on the letters again
 }
 
   // Reset hearts
@@ -37,7 +37,7 @@ reset.addEventListener('click', () => {
     const ol = document.querySelector('#scoreboard ol');
     const listOfHearts = ol.querySelectorAll('li img'); //Select all of the list item images in ol, whether it's a lost heart or live heart
     for (let i = 0; i < listOfHearts.length; i += 1) { // Cycle through the list images until you reach all 5...
-      listOfHearts[0].setAttribute("src", "images/liveHeart.png"); //Change the src value to the new listOfHearts image, starting from the 0 index list item
+      listOfHearts[i].setAttribute("src", "images/liveHeart.png"); //Change the src value to the new listOfHearts image, starting from the 0 index list item
     }
 });
 
