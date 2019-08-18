@@ -36,7 +36,7 @@ reset.addEventListener('click', () => {
 
     const ol = document.querySelector('#scoreboard ol');
     const listOfHearts = ol.querySelectorAll('li img'); //Select all of the list item images in ol, whether it's a lost heart or live heart
-    for (let i = 0; i < listOfHearts.length; i += 1) { // as long as the index is greater than 0, which it always is since we are selecting them all...
+    for (let i = 0; i < listOfHearts.length; i += 1) { // Cycle through the list images until you reach all 5...
       listOfHearts[0].setAttribute("src", "images/liveHeart.png"); //Change the src value to the new listOfHearts image, starting from the 0 index list item
     }
 });
