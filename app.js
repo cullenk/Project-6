@@ -29,7 +29,7 @@ reset.addEventListener('click', () => {
     const chosen = document.querySelectorAll('.chosen'); //Find all the letters on the keyboard that were clicked on
     for (let i = 0; i < chosen.length; i += 1) {
     chosen[i].className = ' '; // set the class name back to nothing, removing the "chosen" styling
-    chosen[i].removeAttribute('disabled'); // remove the diabled atttribute so the user can click on the letters again
+    chosen[i].removeAttribute('disabled'); // remove the disabled atttribute so the user can click on the letters again
 }
 
   // Reset hearts
